@@ -14,17 +14,15 @@ The primary goals of this repository are:
 - To track my progress and growth as a developer
 - To share my learning experiences with the community
 
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
 ### Frontend
 - HTML5, CSS3, JavaScript
 - React.js
 
 ### Backend
-- Node.js
-- Express.js
-- FastAPI
 - Django
+- Flask
 
 ## 🗂️ Project Structure
 
