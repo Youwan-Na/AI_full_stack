@@ -21,10 +21,8 @@ The primary goals of this repository are:
 - React.js
 
 ### Backend
-- Node.js
-- Express.js
-- FastAPI
 - Django
+- Flask
 
 ## 🗂️ Project Structure
 
