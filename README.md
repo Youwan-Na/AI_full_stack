@@ -14,7 +14,7 @@ The primary goals of this repository are:
 - To track my progress and growth as a developer
 - To share my learning experiences with the community
 
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
 ### Frontend
 - HTML5, CSS3, JavaScript
