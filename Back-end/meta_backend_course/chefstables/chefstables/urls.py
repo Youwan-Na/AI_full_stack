@@ -21,7 +21,10 @@ from myapp import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('hello', views.home, name = "home"),
+    path('', views.home, name = "home"),
     path('homepage/', views.hompage),
-    path('display_date', path = views.display_date)
+    path('display_date/', views.display_date),
+    path('home/', views.home),
+    path('dishes/<str:dish>', views.menuitems),
 ]
+# Change
