@@ -24,6 +24,9 @@ The primary goals of this repository are:
 - Django
 - Flask
 
+### Database
+- MySQL
+
 ## 🗂️ Project Structure
 
 ```
