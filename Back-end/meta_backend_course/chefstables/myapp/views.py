@@ -19,7 +19,8 @@ def menuitems(request, dish):
     items = {
         'pasta':'pasta is a type of a noodle',
         'falafel' : 'falafel are deep fried patties',
-        'cheese cake' : 'Cheese cake for you!'
+        'cheese cake' : 'Cheese cake for you!',
+        "fish_cake" : "This is not recommend..."
     }
 
     description = items[dish]
