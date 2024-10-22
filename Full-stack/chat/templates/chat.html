@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <style>
+    :root {
+        --lg-red: #A50034;
+        --lg-red-light: #c4214d;
+        --lg-red-dark: #8c002c;
+        --lg-gray: #6B6B6B;
+        --lg-gray-light: #8a8a8a;
+        --lg-gray-lighter: #f0f0f0;
+        --lg-gray-dark: #404040;
+        --ai-msg-bg: #f8f9fa;
+        --user-msg-bg: #ffffff;
+        --ai-avatar-bg: #565869;
+        --user-avatar-bg: #A50034;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        color: #2D3748;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 40px;
+        background: white;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .logo {
+        padding: px 16px;
+    }
+    
+    .logo img {
+        height: 60px;
+        width: auto;
+        display: block;
+    }
+
+    .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 900px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 32px 20px 120px 20px;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .message {
+        display: flex;
+        padding: 24px 32px;
+        transition: background-color 0.2s ease;
+    }
+
+    .message.ai {
+        background-color: var(--ai-msg-bg);
+    }
+
+    .message.user {
+        background-color: var(--user-msg-bg);
+    }
+
+    .message:hover {
+        background-color: #f1f5f9;
+    }
+
+    .message-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        margin-right: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+
+    .message.ai .message-avatar {
+        background-color: var(--ai-avatar-bg);
+    }
+
+    .message.user .message-avatar {
+        background-color: var(--user-avatar-bg);
+    }
+
+    .message:hover .message-avatar {
+        transform: scale(1.05);
+    }
+
+    .message-content {
+        flex: 1;
+        line-height: 1.7;
+        font-size: 15px;
+        color: #1a202c;
+        max-width: 750px;
+    }
+
+    .input-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 20%);
+        backdrop-filter: blur(10px);
+    }
+
+    .input-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+
+    .input-wrapper:focus-within {
+        box-shadow: 0 4px 20px rgba(165, 0, 52, 0.15);
+    }
+
+    .chat-input {
+        width: 100%;
+        padding: 18px;
+        padding-right: 60px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 15px;
+        line-height: 1.5;
+        resize: none;
+        max-height: 200px;
+        min-height: 60px;
+        transition: all 0.3s ease;
+        color: #2D3748;
+    }
+
+    .chat-input:focus {
+        outline: none;
+        border-color: var(--lg-red);
+    }
+
+    .chat-input::placeholder {
+        color: #a0aec0;
+    }
+
+    .send-button {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        width: 32px;
+        height: 32px;
+        background: var(--lg-red);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        opacity: 0.9;
+    }
+
+    .send-button:hover {
+        transform: scale(1.05);
+        opacity: 1;
+        background: var(--lg-red-light);
+    }
+
+    .send-button:active {
+        transform: scale(0.95);
+    }
+
+    .send-icon {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 8px 0;
+        margin-top: 4px;
+    }
+
+    .typing-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--lg-gray-light);
+        animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) { animation-delay: 200ms; }
+    .typing-dot:nth-child(2) { animation-delay: 300ms; }
+    .typing-dot:nth-child(3) { animation-delay: 400ms; }
+
+    @keyframes typing {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+
+    code {
+        background-color: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+    }
+
+    pre {
+        background-color: #f8fafc;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 12px 0;
+        border: 1px solid #e2e8f0;
+    }
+
+    pre code {
+        background-color: transparent;
+        padding: 0;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            padding: 12px 16px;
+        }
+        
+        .chat-container {
+            padding: 16px 0 100px 0;
+        }
+        
+        .message {
+            padding: 20px 16px;
+        }
+        
+        .message-avatar {
+            margin-right: 16px;
+        }
+        
+        .input-container {
+            padding: 16px;
+        }
+        
+        .chat-input {
+            font-size: 16px;
+            padding: 16px;
+            padding-right: 56px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo1.jpg') }}" alt="Logo 1">
+        </div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo 2">
+        </div>
+    </header>
+
+    <main class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai">
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    안녕하세요! 저는 AI 어시스턴트입니다. 무엇을 도와드릴까요?
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="input-container">
+        <div class="input-wrapper">
+            <textarea id="chat-input" class="chat-input" placeholder="메시지를 입력하세요..." rows="1"></textarea>
+            <button class="send-button" id="send-button">
+                <svg class="send-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.querySelector('#chat-input');
+        const sendButton = document.querySelector('#send-button');
+        const chatMessages = document.querySelector('#chat-messages');
+
+        function addMessage(content, isAI) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isAI ? 'ai' : 'user'}`;
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${isAI ? 'AI' : 'U'}</div>
+                <div class="message-content">${content}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = textarea.value.trim();
+            if (!message) return;
+
+            // 사용자 메시지 추가
+            addMessage(message, false);
+            textarea.value = '';
+            textarea.style.height = 'auto';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // AI 응답 추가
+                addMessage(data.response, true);
+            } catch (error) {
+                addMessage(`오류가 발생했습니다: ${error.message}`, true);
+            }
+        }
+
+
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+        });
+
+        textarea.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+    </script>
+</body>
+</html>

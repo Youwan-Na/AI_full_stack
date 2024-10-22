@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+    :root {
+        --lg-red: #A50034;
+        --lg-red-light: #c4214d;
+        --lg-red-dark: #8c002c;
+        --lg-gray: #6B6B6B;
+        --lg-gray-light: #8a8a8a;
+        --lg-gray-lighter: #f0f0f0;
+        --lg-gray-dark: #404040;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .logo {
+        padding: 10px 20px;
+        border: 1px solid var(--lg-gray);
+        font-size: 16px;
+        color: var(--lg-gray-dark);
+    }
+    
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .title-container {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    
+    .search-title {
+        font-size: 28px;
+        color: var(--lg-gray-dark);
+        margin-bottom: 10px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+    }
+    
+    .search-subtitle {
+        font-size: 16px;
+        color: var(--lg-gray);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+    
+    .title-line {
+        width: 60px;
+        height: 3px;
+        background: var(--lg-red);
+        margin: 20px auto;
+        border-radius: 2px;
+    }
+    
+    .content-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 20px;
+    }
+    
+    .section {
+        width: 100%;
+    }
+    
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+        color: var(--lg-gray-dark);
+        font-weight: 600;
+        margin-right: 15px;
+    }
+    
+    .section-count {
+        background: var(--lg-red);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 14px;
+    }
+    
+    .card-grid {
+        display: grid;
+        gap: 15px;
+    }
+    
+    .card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid transparent;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        border-color: var(--lg-red);
+    }
+    
+    .card-title {
+        color: var(--lg-gray-dark);
+        font-size: 16px;
+        font-weight: 500;
+    }
+    
+    .view-more {
+        color: var(--lg-red);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .card:hover .view-more {
+        opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+        .header {
+            padding: 15px 20px;
+        }
+        
+        .main-container {
+            padding: 20px;
+        }
+        
+        .content-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .search-title {
+            font-size: 24px;
+        }
+        
+        .search-subtitle {
+            font-size: 14px;
+            padding: 0 20px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Logo1</div>
+        <div class="logo">Logo2</div>
+    </header>
+    
+    <div class="main-container">
+        <div class="title-container">
+            <h1 class="search-title">Advanced Search</h1>
+            <div class="title-line"></div>
+            <p class="search-subtitle">
+                Explore papers and patents in our comprehensive database
+            </p>
+        </div>
+        
+        <div class="content-container">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Paper</h2>
+                    <span class="section-count">3</span>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">Layered Metal Oxide</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Prussian Blue Analogues</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Hard Carbon</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Patent</h2>
+                    <span class="section-count">3</span>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">Layered Metal Oxide</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Prussian Blue Analogues</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Hard Carbon</h3>
+                        <a href="#" class="view-more">View Details →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
