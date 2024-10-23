@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.memory import ConversationBufferMemory
-api_key = ""
+api_key = "" #API KEY
 
 app = Flask(__name__)
 
