@@ -9,7 +9,3 @@ Every contents will be opened!
 ## 📬 Contact
 
 Youwan Na - sktprp@google.com
-
----
-
-Thank you for visiting my Web Development repository. Happy coding! 🎉
