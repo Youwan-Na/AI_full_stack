@@ -3,19 +3,65 @@
     <head>
         <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="https://nomadcoders.co/m.png">
         <title>Home - My first website.</title>
+        <link href="styles.css" rel="stylesheet"/>
         <meta name="description" content="This is my page"/>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" href="">
+        <style>
+            body {
+                background-color: gainsboro;
+            }
+            header {
+                display: flex;
+                justify-content: center;
+            }
+            main {
+                display: flex;
+                justify-content: center;
+            }
+            div{
+                width:200px;
+                height:300px;
+                border: 3px solid white;
+                margin: 10px;
+            }
+            .first div:nth-child(1) {
+                background-color: tomato;
+            }
+            .first div:nth-child(2) {
+                background-color: teal;
+            }
+            .second div:nth-child(1) {
+                background-color: burlywood;
+            }
+            .second div:nth-child(2) {
+                background-color: thistle;
+            }
+            p{
+                background-color: white;
+                font-size: 20px;
+                position: relative;
+                top: 10px;
+            }
+
+        </style>
     </head>
     <body>
-        <form>
-            <input type="file" accept=".pdf">
-            <input required placeholder="First name" type="text">
-            <input placeholder="Last name" type="text">
-            <input placeholder="ID" type="text">
-            <input placeholder="Password" type="password" >
-            <input value="Create" type="submit">
-        </form>
-        
-    </body>
+        <header><h1>The Best Colors</h1></header>
+        <main class="first">
+            <div id="tomato">
+                <p>Tomato<br>#FF6347</p>
+            </div>
+            <div id="teal">
+                <p>Teal<br>#008080</p>
+            </div>
+        </main>
+        <main class="second">
+            <div id="burlywood">
+                <p>Burlywood<br>#DEB887</p>
+            </div>
+            <div id="thistle">
+                <p>Thistle<br>#D7BFD7</p>
+            </div> 
+        </div>
+    </main>
 </html>
